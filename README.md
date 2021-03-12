@@ -14,3 +14,4 @@ Diseñar hardware y software de un sensor de temperatura para mandar informes de
 
 comentarios 1
 
+comentario 2
