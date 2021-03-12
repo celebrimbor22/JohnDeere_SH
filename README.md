@@ -1,7 +1,7 @@
 # JohnDeere_SH
 
-Team name: Smart heater
 
+Team name: Smart heater
 
 Meambers:
 
