@@ -2,7 +2,7 @@
 
 Team name: Smart heater
 
-Meambers: 
+Meambers 
 
 Jose Andres Miguel -- hardware and software design 
 
