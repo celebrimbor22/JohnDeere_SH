@@ -8,4 +8,3 @@ Meambers:
 Jose Andres Miguel -- hardware and software design 
 
 Victor Cardenas    -- hardware and software design
-
