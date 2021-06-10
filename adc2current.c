@@ -1,30 +1,30 @@
 
 /* Forward declaration for rtModel */
-#include "rtwtypes.h"
+//#include "rtwtypes.h"
 
-
+typedef uint8_t boolean_T;
 /* Block signals (default storage) */
 typedef struct {
     float  Gain;                         /* '<S1>/Gain' */
     float  Vin;                          /* '<S1>/Divide' */
     float Subtract;                     /* '<S3>/Subtract' */
-    uint16_T adcSat;                     /* '<Root>/Saturation' */
-    uint16_T currentHigh;                /* '<S2>/Cast' */
-    uint16_T Cast1;                      /* '<S2>/Cast1' */
-    uint16_T courrentLow;                /* '<S2>/Gain' */
+    uint16_t adcSat;                     /* '<Root>/Saturation' */
+    uint16_t currentHigh;                /* '<S2>/Cast' */
+    uint16_t Cast1;                      /* '<S2>/Cast1' */
+    uint16_t courrentLow;                /* '<S2>/Gain' */
     boolean_T Compare;                   /* '<S4>/Compare' */
     boolean_T Compare_m;                 /* '<S5>/Compare' */
 } B_adc2current_T;
 
 /* External inputs (root inport signals with default storage) */
 typedef struct {
-    uint16_T adcOut;                     /* '<Root>/Input' */
+    uint16_t adcOut;                     /* '<Root>/Input' */
 } ExtU_adc2current_T;
 
 /* External outputs (root outports fed by signals with default storage) */
 typedef struct {
     float  Iout;                         /* '<Root>/Iout' */
-    uint16_T CurrentState;              /* '<Root>/CurrentState' */
+    uint16_t CurrentState;              /* '<Root>/CurrentState' */
 } ExtY_adc2current_T;
 
 
@@ -41,9 +41,9 @@ ExtY_adc2current_T adc2current_Y;
 
 
 /* Model step function */
-int adc2current_step(int aux)
+void adc2current_step()
 {
-  uint16_T u0;
+  uint16_t u0;
 
   /* Saturate: '<Root>/Saturation' incorporates:
    *  Inport: '<Root>/Input'
@@ -63,12 +63,12 @@ int adc2current_step(int aux)
   /* End of Saturate: '<Root>/Saturation' */
 
   /* Gain: '<S1>/Gain' */
-  adc2current_B.Gain = 3.29998779296875 * (float)adc2current_B.adcSat;
+  adc2current_B.Gain = 3.3 * (float)adc2current_B.adcSat;
 
   /* Product: '<S1>/Divide' incorporates:
    *  Constant: '<Root>/Constant'
    */
-  adc2current_B.Vin = adc2current_B.Gain / 4095.0;
+  adc2current_B.Vin = (float)adc2current_B.Gain / 4096.0;
 
   /* Sum: '<S3>/Subtract' incorporates:
    *  Constant: '<Root>/Constant1'
@@ -100,15 +100,15 @@ int adc2current_step(int aux)
   adc2current_B.Cast1 = adc2current_B.Compare_m;
 
   /* Gain: '<S2>/Gain' */
-  adc2current_B.courrentLow = (uint16_T)(adc2current_B.Cast1 << 1);
+  adc2current_B.courrentLow = (uint16_t)(adc2current_B.Cast1 << 1);
 
   /* Outport: '<Root>/CurrentState' incorporates:
    *  Sum: '<S2>/Add'
    */
-  adc2current_Y.CurrentState = (uint16_T)((uint32_T)adc2current_B.currentHigh +
+  adc2current_Y.CurrentState = (uint16_t)((uint32_t)adc2current_B.currentHigh +
     adc2current_B.courrentLow);
 
-  return 0;
+ // return 0;
 }
 
 /*
@@ -117,9 +117,15 @@ int adc2current_step(int aux)
  * [EOF]
  */
 
-unsigned short testCurrent(unsigned short ADCin)
-{
-    adc2current_U.adcOut = ADCin;
-    int aux = adc2current_step(0);
-    return adc2current_Y.CurrentState;
-}
+// unsigned short testCurrent(unsigned short ADCin)
+// {
+//     adc2current_U.adcOut = ADCin;
+//     adc2current_step();
+//     return adc2current_Y.CurrentState;
+// }
+// float testCurrentValue(unsigned short ADCin) {
+    
+//     adc2current_U.adcOut = ADCin;
+//     adc2current_step();
+//     return adc2current_Y.Iout;
+// }

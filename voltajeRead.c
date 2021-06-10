@@ -9,13 +9,13 @@ the ADC are reading the voltage of the voltage divieder of 33k Ohms and 6.7K  Oh
 
 char voltageErrorDet(unsigned short ADCvalue);
 
-#define ADCResolution 4095.0F
+#define ADCResolution 4096.0F
 #define Vref 3.3F
 #define MAX_VOL 2.126448 //max voltage 
 #define MIN_VOL 1.923929 //min voltage 
 
-char voltageErrorDet(unsigned short ADCvalue){
-    char state = 0;
+uint8_t voltageErrorDet(unsigned short ADCvalue){
+    uint8_t state = 0;
     float voltage =0.0F;
 
     if(ADCvalue >= ADCResolution){
