@@ -3,7 +3,7 @@
 Team name: Smart heater
 
 
-Jose Andres Miguel Ao1653368@itesm.mx-- hardware and software design 
+Jose Andres Miguel A01653368@itesm.mx-- hardware and software design 
 
 Victor Cardenas    A00816350@itesm.mx-- hardware and software design
 
